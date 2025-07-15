@@ -6,11 +6,12 @@ interface DeezerTrack {
   id: number
   title: string
   artist: {
-    name: string
+  name: string
   }
   album: {
     cover_medium: string
   }
+  preview: string
 }
 
 const Home = () => {
@@ -48,6 +49,7 @@ const Home = () => {
               title={track.title}
               artist={track.artist.name}
               image={track.album.cover_medium}
+              preview={track.preview}
             />
           ))}
         </div>

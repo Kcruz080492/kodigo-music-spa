@@ -48,3 +48,6 @@
 .like-button {
   background-color: #3b3b3b;
 }
+.like-button.liked {
+  color: #1db954;
+}
