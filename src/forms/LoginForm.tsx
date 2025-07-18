@@ -1,5 +1,6 @@
 import { useForm } from 'react-hook-form'
 
+
 // Tipado para los datos del formulario
 type FormData = {
   email: string

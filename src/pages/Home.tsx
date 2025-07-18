@@ -1,40 +1,42 @@
-import { useEffect, useState } from 'react'
-import { MusicCard } from '../components/MusicCard'
-import '../styles/Home.css'
+import { useEffect, useState } from 'react';
+import { MusicCard } from '../components/MusicCard';
+import '../styles/Home.css';
 
-interface DeezerTrack {
-  id: number
-  title: string
-  artist: {
-    name: string
-  }
-  album: {
-    cover_medium: string
-  }
-  preview: string
+
+
+interface Cancion {
+  id: number;
+  titulo: string;
+  artista: string;
+  imagen: string;
+  preview: string;
 }
 
 const Home = () => {
-  const [tracks, setTracks] = useState<DeezerTrack[]>([])
-  const [loading, setLoading] = useState(true)
+  const [tracks, setTracks] = useState<Cancion[]>([]);
+  const [loading, setLoading] = useState(true);
 
+  const supabaseUrl = 'https://asqoiorfsomxkvbafivm.supabase.co';
+  const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImFzcW9pb3Jmc29teGt2YmFmaXZtIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTI3OTc3MjAsImV4cCI6MjA2ODM3MzcyMH0.8cNPmNllJQSqLsTZs9T0bOlXTHjPh5eryk_K-TdmFtM';
 
- useEffect(() => {
-    fetch('https://cors-anywhere.herokuapp.com/https://api.deezer.com/chart/0/tracks', {
+  useEffect(() => {
+    fetch(`${supabaseUrl}/rest/v1/Cancion`, {
+      method: 'GET',
       headers: {
-        'Origin': 'x-requested-with'
-      }
+        apikey: supabaseKey,
+        Authorization: `Bearer ${supabaseKey}`,
+      },
     })
-      .then(response => response.json())
+      .then(res => res.json())
       .then(data => {
-        setTracks(data.data)
-        setLoading(false)
+        setTracks(data);
+        setLoading(false);
       })
       .catch(error => {
-        console.error('Error al obtener datos de Deezer:', error)
-        setLoading(false)
-      })
-  }, [])
+        console.error('Error al obtener canciones:', error);
+        setLoading(false);
+      });
+  }, []);
 
   return (
     <section className="home">
@@ -46,16 +48,16 @@ const Home = () => {
           {tracks.map(track => (
             <MusicCard
               key={track.id}
-              title={track.title}
-              artist={track.artist.name}
-              image={track.album.cover_medium}
+              title={track.titulo}
+              artist={track.artista}
+              image={track.imagen}
               preview={track.preview}
             />
           ))}
         </div>
       )}
     </section>
-  )
-}
+  );
+};
 
-export default Home
+export default Home;

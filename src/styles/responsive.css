@@ -1,0 +1,87 @@
+@media (max-width: 480px) {
+  /* HOME SECTION */
+  .home {
+    padding: 1rem;
+  }
+
+  .music-grid {
+    grid-template-columns: 1fr;
+    justify-items: center;
+    padding: 0;
+    overflow-x: hidden;
+  }
+
+  .music-card {
+    width: 90%;
+    max-width: 300px;
+  }
+
+  /* NAVBAR */
+  .navbar {
+    flex-direction: column;
+    align-items: flex-start;
+    text-align: center;
+  }
+
+  .navbar ul {
+    flex-direction: column;
+    gap: 0.5rem;
+    padding-left: 0;
+    width: 100%;
+  }
+
+  .navbar a {
+    font-size: 1rem;
+    display: block;
+    width: 100%;
+    text-align: left;
+  }
+
+  /* LOGIN FORM */
+  .login-container {
+    padding: 1rem;
+    height: auto;
+  }
+
+  .login-form {
+    width: 100%;
+    max-width: 320px;
+  }
+}
+@media (max-width: 768px) {
+  /* HOME SECTION */
+  .home {
+    padding: 1.5rem;
+  }
+
+  .music-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+  }
+
+  .music-card {
+    width: 100%;
+    max-width: 350px;
+  }
+
+  /* NAVBAR */
+  .navbar {
+    padding: 0.8rem;
+    font-size: 1rem;
+  }
+
+  .navbar ul {
+    gap: 0.8rem;
+  }
+
+  /* LOGIN FORM */
+  .login-container {
+    height: auto;
+    padding: 2rem;
+  }
+
+  .login-form {
+    width: 90%;
+    max-width: 400px;
+  }
+}
