@@ -6,7 +6,7 @@ interface DeezerTrack {
   id: number
   title: string
   artist: {
-  name: string
+    name: string
   }
   album: {
     cover_medium: string
@@ -18,8 +18,8 @@ const Home = () => {
   const [tracks, setTracks] = useState<DeezerTrack[]>([])
   const [loading, setLoading] = useState(true)
 
-  useEffect(() => {
-    // Consulta de canciones populares en Deezer usando un proxy para evitar CORS
+
+ useEffect(() => {
     fetch('https://cors-anywhere.herokuapp.com/https://api.deezer.com/chart/0/tracks', {
       headers: {
         'Origin': 'x-requested-with'
@@ -39,7 +39,7 @@ const Home = () => {
   return (
     <section className="home">
       <h2>Bienvenido a Kodigo Music</h2>
-      <p>Explora tu música favorita al estilo de Spotify o Apple Music.</p>
+      <p>Explora tu música favorita al estilo Kodigo Music.</p>
 
       {loading ? <p>Cargando canciones...</p> : (
         <div className="music-grid">
