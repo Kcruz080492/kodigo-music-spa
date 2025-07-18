@@ -3,6 +3,8 @@
   padding: 1rem;
   position: relative;
   z-index: 1000;
+  display: flex;
+  justify-content: space-between;
 }
 
 /* Contenedor horizontal: título y hamburguesa */
