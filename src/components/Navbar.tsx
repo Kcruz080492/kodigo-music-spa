@@ -9,21 +9,24 @@ const Navbar = () => {
     setIsMenuOpen(!isMenuOpen)
   }
 
+  const closeMenu = () => {
+    setIsMenuOpen(false)
+  }
+
   return (
     <nav className="navbar">
-      <h1>Kodigo Music</h1>
+      <div className="navbar-header">
+        <h1 className="brand">Kodigo Music</h1>
+        <button className="hamburger" onClick={toggleMenu} aria-label="Toggle menu">
+          <span className="bar"></span>
+          <span className="bar"></span>
+          <span className="bar"></span>
+        </button>
+      </div>
 
-      {/* Botón hamburguesa */}
-      <button className="hamburger" onClick={toggleMenu} aria-label="Toggle menu">
-        <span className={`bar ${isMenuOpen ? 'animate' : ''}`}></span>
-        <span className={`bar ${isMenuOpen ? 'animate' : ''}`}></span>
-        <span className={`bar ${isMenuOpen ? 'animate' : ''}`}></span>
-      </button>
-
-      {/* Menú de navegación */}
       <ul className={`nav-links ${isMenuOpen ? 'open' : ''}`}>
-        <li><Link to="/" onClick={() => setIsMenuOpen(false)}>Inicio</Link></li>
-        <li><Link to="/login" onClick={() => setIsMenuOpen(false)}>Login</Link></li>
+        <li><Link to="/" onClick={closeMenu}>Inicio</Link></li>
+        <li><Link to="/login" onClick={closeMenu}>Login</Link></li>
       </ul>
     </nav>
   )

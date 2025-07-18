@@ -9,3 +9,15 @@
   margin-top: 2rem;
   font-size: 0.9rem;
 }
+
+/*Media query for responsive design*/
+@media (max-width: 768px) {
+  .footer {
+    font-size: 0.8rem;
+    padding: 0.5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+}
