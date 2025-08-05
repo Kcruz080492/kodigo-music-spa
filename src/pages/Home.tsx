@@ -1,8 +1,7 @@
 import { useEffect, useState } from 'react';
 import { MusicCard } from '../components/MusicCard';
+import { supabase } from '../Lib/supabase';
 import '../styles/Home.css';
-
-
 
 interface Cancion {
   id: number;
@@ -15,35 +14,65 @@ interface Cancion {
 const Home = () => {
   const [tracks, setTracks] = useState<Cancion[]>([]);
   const [loading, setLoading] = useState(true);
-
-  const supabaseUrl = 'https://asqoiorfsomxkvbafivm.supabase.co';
-  const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImFzcW9pb3Jmc29teGt2YmFmaXZtIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTI3OTc3MjAsImV4cCI6MjA2ODM3MzcyMH0.8cNPmNllJQSqLsTZs9T0bOlXTHjPh5eryk_K-TdmFtM';
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    fetch(`${supabaseUrl}/rest/v1/Cancion`, {
-      method: 'GET',
-      headers: {
-        apikey: supabaseKey,
-        Authorization: `Bearer ${supabaseKey}`,
-      },
-    })
-      .then(res => res.json())
-      .then(data => {
-        setTracks(data);
+    const fetchTracks = async () => {
+      try {
+        setLoading(true);
+        setError(null);
+        
+        const { data, error } = await supabase
+          .from('Cancion')
+          .select('*');
+
+        if (error) {
+          console.error('Error de Supabase:', error);
+          setError(`Error al cargar canciones: ${error.message}`);
+        } else {
+          console.log('Datos obtenidos:', data);
+          setTracks(data || []);
+        }
+      } catch (err) {
+        console.error('Error inesperado:', err);
+        setError('Error inesperado al cargar las canciones');
+      } finally {
         setLoading(false);
-      })
-      .catch(error => {
-        console.error('Error al obtener canciones:', error);
-        setLoading(false);
-      });
+      }
+    };
+
+    fetchTracks();
   }, []);
+
+  if (loading) {
+    return (
+      <section className="home">
+        <h2>Bienvenido a Kodigo Music</h2>
+        <p>Cargando canciones...</p>
+      </section>
+    );
+  }
+
+  if (error) {
+    return (
+      <section className="home">
+        <h2>Bienvenido a Kodigo Music</h2>
+        <p style={{ color: '#ff6b6b' }}>{error}</p>
+        <button onClick={() => window.location.reload()}>
+          Reintentar
+        </button>
+      </section>
+    );
+  }
 
   return (
     <section className="home">
       <h2>Bienvenido a Kodigo Music</h2>
       <p>Explora tu música favorita al estilo Kodigo Music.</p>
 
-      {loading ? <p>Cargando canciones...</p> : (
+      {tracks.length === 0 ? (
+        <p>No se encontraron canciones en la base de datos.</p>
+      ) : (
         <div className="music-grid">
           {tracks.map(track => (
             <MusicCard
